@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import NewUser from "./Components/User/NewUser";
+import Card from "./Components/UI/Card";
+import UserList from "./Components/User/UserList";
+import { v4 as uuidv4 } from "uuid";
+import "./global-styles.css";
+const App = () => {
+  const [userList, setUserList] = useState([]);
+  const newUserDataHandler = (Uname, Uage, id) => {
+    setUserList((prevList) => {
+      return [...prevList, { username: Uname, age: Uage, id: uuidv4() }];
+    });
+  };
 
-function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <NewUser onSubmit={newUserDataHandler} />
+      <UserList users={userList} />
+    </>
   );
-}
+};
 
 export default App;
